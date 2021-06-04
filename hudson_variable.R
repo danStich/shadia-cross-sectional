@@ -153,7 +153,7 @@ ggplot(plotter,
   geom_line() +
   guides(color = guide_legend(nrow = 1, byrow = TRUE)) +
   facet_wrap(~ downstream_juv) +
-  xlab("Upstream passage (72 hours)") +
+  xlab("Upstream passage (24 hours)") +
   ylab("Millions of spawners") +
   labs(color = "Adult downstream survival",
        fill = "Adult downstream survival") +
