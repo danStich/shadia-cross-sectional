@@ -81,7 +81,7 @@ sfLibrary(shadia)
 sfLibrary(rlecuyer)
 
 # Number of iterations
-niterations <- 1000
+niterations <- 100
 
 # Store and print start time
 start <- Sys.time()
@@ -97,10 +97,6 @@ Sys.time() - start
 # Stop snowfall
 sfStop()
 
-# Save result to .rda file
-save(result,
-     file = "results/hudson_variable.rda"
-     )
 
 # Extract results list from output list
 out <- lapply(result, function(x) x[[c('sim')]])
@@ -118,8 +114,13 @@ plotter <- resdf %>%
     lci=CI(populationSize)[1],
     uci=CI(populationSize)[2],
     samp = n(),
+    river = "Hudson",
     .groups = "keep"
     )
+
+
+# Save result to .rda file
+save(plotter, file = "results/hudson_variable.rda")
 
 # Convert grouping vars to character
 plotter <- plotter %>%
