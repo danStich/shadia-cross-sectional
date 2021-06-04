@@ -106,7 +106,7 @@ plotter <- resdf %>%
     lci=CI(populationSize)[1],
     uci=CI(populationSize)[2],
     samp = n(),
-    river = "Penobscot",
+    river = "Connecticut",
     .groups = "keep"
     )
 
