@@ -94,7 +94,7 @@ sfLibrary(shadia)
 sfLibrary(rlecuyer)
 
 # Number of iterations
-niterations <- 100
+niterations <- 200
 
 # Store and print start time
 start <- Sys.time()
@@ -130,9 +130,8 @@ plotter <- resdf %>%
     .groups = "keep"
     )
 
-
 # Save result to .rda file
-save(plotter, file = "results/androscoggin_variable.rda")
+# save(plotter, file = "results/androscoggin_variable.rda")
 
 # Convert grouping vars to character
 plotter <- plotter %>%
@@ -149,9 +148,12 @@ ann_text <- data.frame(
             "Juvenile downstream = 0.95", 
             "Juvenile downstream = 1"),
   downstream = as.character(1),
-  y = rep(1.5e6, 3),
+  y = rep(5.9e5, 3),
   x = rep(0, 3)
 )
+
+# Plotter baseline
+baseline <- mean(plotter$pop[plotter$upstream == 0])
 
 # Line graphs of population size by upstream/downstream passage
 # Plotting code
@@ -160,6 +162,7 @@ ggplot(plotter,
            y = pop, 
            color = factor(downstream), 
            fill = factor(downstream))) +
+  geom_hline(yintercept = baseline, lty = 2) +
   geom_ribbon(
     aes(x = upstream, ymin = lci, ymax = uci, color = NULL), alpha = 0.10) +
   geom_line() +
@@ -169,8 +172,8 @@ ggplot(plotter,
   ylab("Millions of spawners") +
   labs(color = "Adult downstream survival",
        fill = "Adult downstream survival") +
-  scale_y_continuous(breaks = seq(0,10e7,.5e6),
-                     labels = format(seq(0, 100, 0.5), digits=2)) + 
+  scale_y_continuous(breaks = seq(0,1e6,.1e6),
+                     labels = format(seq(0, 1, 0.1), digits=2)) + 
   theme_bw() +
   theme(
     panel.spacing = unit(.02, units = "npc"),

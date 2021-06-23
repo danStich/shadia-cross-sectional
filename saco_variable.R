@@ -8,7 +8,7 @@ sfInit(parallel=TRUE, cpus=7, type="SOCK")
 
 # Define a function that can be called in parallel
 # to run dam passage performance standard model
-wrapper <- function(x) {
+wrapper <- function(idx) {
         
   # Randomly sampling passage efficiencies
   # Upstream passage through dams
@@ -25,35 +25,36 @@ wrapper <- function(x) {
   
   # Run the model with desired settings or
   # a random set of conditions
-  res1 <- merrimackRiverModel(
+  res1 <- sacoRiverModel(
     species = 'shad',
     nRuns = 1,
     nYears = 20,
-    n_adults = rnorm(1, 1e4, 10),
-    timing = rep(1, 5),
+    n_adults = rnorm(1, 1e4, 100),
+    timing = rep(1, 6),
     upstream = list(
-      essex = upstreamx,
-      pawtucketBypass = 1,
-      pawtucket = 1,
-      amoskeag = 1,
-      hookset = 1
-      ),
+      cataract = upstreamx,
+      spring = 1,
+      skelton = 1,
+      barmills = 1,
+      westBuxton = 1,
+      bonnyEagle = 1
+    ),
     downstream = list(
-      essex = downstreamx,
-      pawtucketBypass = 1,
-      pawtucket = 1,
-      amoskeag = 1,
-      hookset = 1
-      ),
+      cataract = downstreamx,
+      spring = 1,
+      barmills = 1,
+      skelton = 1,
+      westBuxton = 1,
+      bonnyEagle = 1
+    ),
     downstream_juv = list(
-      essex = downstream_juvx,
-      pawtucketBypass = 1,
-      pawtucket = 1,
-      amoskeag = 1,
-      hookset = 1
-    ), 
-    pBypassUp = 1,
-    pBypassD = 1,    
+      cataract = downstream_juvx,
+      spring = 1,
+      barmills = 1,
+      skelton = 1,
+      westBuxton = 1,
+      bonnyEagle = 1
+    ),    
     inRiverF = 0,
     commercialF = 0,
     bycatchF = 0,
@@ -94,6 +95,7 @@ Sys.time() - start
 # Stop snowfall
 sfStop()
 
+
 # Extract results list from output list
 out <- lapply(result, function(x) x[[c('sim')]])
 
@@ -110,12 +112,14 @@ plotter <- resdf %>%
     lci=CI(populationSize)[1],
     uci=CI(populationSize)[2],
     samp = n(),
-    river = "Merrimack",
+    river = "Saco",
     .groups = "keep"
     )
 
+plotter
+
 # Save result to .rda file
-save(plotter, file = "results/merrimack_variable.rda")
+save(plotter, file = "results/saco_variable.rda")
 
 # Convert grouping vars to character
 plotter <- plotter %>%
@@ -132,7 +136,7 @@ ann_text <- data.frame(
             "Juvenile downstream = 0.95", 
             "Juvenile downstream = 1"),
   downstream = as.character(1),
-  y = rep(1e6, 3),
+  y = rep(3.9e6, 3),
   x = rep(0, 3)
 )
 

@@ -50,6 +50,7 @@ wrapper <- function(x) {
       gatehouse= 1,
       vernon = 1
     ), 
+    pSpillway = 1,
     inRiverF = 0,
     commercialF = 0,
     bycatchF = 0,
@@ -129,9 +130,12 @@ ann_text <- data.frame(
             "Juvenile downstream = 0.95", 
             "Juvenile downstream = 1"),
   downstream = as.character(1),
-  y = rep(1.5e6, 3),
+  y = rep(2.5e6, 3),
   x = rep(0, 3)
 )
+
+# Plotter baseline
+baseline <- mean(plotter$pop[plotter$upstream == 0])
 
 # Line graphs of population size by upstream/downstream passage
 # Plotting code
@@ -140,6 +144,7 @@ ggplot(plotter,
            y = pop, 
            color = factor(downstream), 
            fill = factor(downstream))) +
+  geom_hline(yintercept = baseline, lty = 2) +
   geom_ribbon(
     aes(x = upstream, ymin = lci, ymax = uci, color = NULL), alpha = 0.10) +
   geom_line() +

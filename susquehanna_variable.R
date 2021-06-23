@@ -25,35 +25,45 @@ wrapper <- function(x) {
   
   # Run the model with desired settings or
   # a random set of conditions
-  res1 <- merrimackRiverModel(
+  res1 <- susquehannaRiverModel(
     species = 'shad',
     nRuns = 1,
     nYears = 20,
-    n_adults = rnorm(1, 1e4, 10),
-    timing = rep(1, 5),
+    n_adults = rnorm(1, 1e6, 10),
+    timing = rep(1, 10),
     upstream = list(
-      essex = upstreamx,
-      pawtucketBypass = 1,
-      pawtucket = 1,
-      amoskeag = 1,
-      hookset = 1
-      ),
+      conowingo = upstreamx,
+      holtwood = upstreamx,
+      safeHarbor = upstreamx,
+      yorkHaven = upstreamx,
+      sunbury = upstreamx,
+      williamsport = upstreamx,
+      lockhaven = upstreamx,
+      rockbottom = upstreamx,
+      chasehibbard = upstreamx,
+      colliersville = upstreamx),
     downstream = list(
-      essex = downstreamx,
-      pawtucketBypass = 1,
-      pawtucket = 1,
-      amoskeag = 1,
-      hookset = 1
-      ),
+      conowingo = downstreamx,
+      holtwood = downstreamx,
+      safeHarbor = downstreamx,
+      yorkHaven = downstreamx,
+      sunbury = downstreamx,
+      williamsport = downstreamx,
+      lockhaven = downstreamx,
+      rockbottom = downstreamx,
+      chasehibbard = downstreamx,
+      colliersville = downstreamx),
     downstream_juv = list(
-      essex = downstream_juvx,
-      pawtucketBypass = 1,
-      pawtucket = 1,
-      amoskeag = 1,
-      hookset = 1
-    ), 
-    pBypassUp = 1,
-    pBypassD = 1,    
+      conowingo = downstream_juvx,
+      holtwood = downstream_juvx,
+      safeHarbor = downstream_juvx,
+      yorkHaven = downstream_juvx,
+      sunbury = downstream_juvx,
+      williamsport = downstream_juvx,
+      lockhaven = downstream_juvx,
+      rockbottom = downstream_juvx,
+      chasehibbard = downstream_juvx,
+      colliersville = downstream_juvx),
     inRiverF = 0,
     commercialF = 0,
     bycatchF = 0,
@@ -94,6 +104,7 @@ Sys.time() - start
 # Stop snowfall
 sfStop()
 
+
 # Extract results list from output list
 out <- lapply(result, function(x) x[[c('sim')]])
 
@@ -110,12 +121,13 @@ plotter <- resdf %>%
     lci=CI(populationSize)[1],
     uci=CI(populationSize)[2],
     samp = n(),
-    river = "Merrimack",
+    river = "Susquehanna",
     .groups = "keep"
     )
 
+
 # Save result to .rda file
-save(plotter, file = "results/merrimack_variable.rda")
+save(plotter, file = "results/susquehanna_variable.rda")
 
 # Convert grouping vars to character
 plotter <- plotter %>%
@@ -132,7 +144,7 @@ ann_text <- data.frame(
             "Juvenile downstream = 0.95", 
             "Juvenile downstream = 1"),
   downstream = as.character(1),
-  y = rep(1e6, 3),
+  y = rep(4.5e6, 3),
   x = rep(0, 3)
 )
 
