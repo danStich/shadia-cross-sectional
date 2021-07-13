@@ -28,7 +28,7 @@ wrapper <- function(x) {
   res1 <- penobscotRiverModel(
     species = 'shad',
     nRuns = 1,
-    nYears = 20,
+    nYears = 40,
     n_adults = rnorm(1, 1e4, 10),
     timing = rep(1, 7),
     upstream = list(
@@ -83,7 +83,7 @@ sfLibrary(shadia)
 sfLibrary(rlecuyer)
 
 # Number of iterations
-niterations <- 100
+niterations <- 500
 
 # Store and print start time
 start <- Sys.time()
@@ -107,8 +107,15 @@ out <- lapply(result, function(x) x[[c('sim')]])
 # res <- lapply(out, function(x) x[[c('res')]])
 resdf <- do.call(rbind, out)
 
+#Save resdf (rename file after each 500 iteration runs)
+write.csv(resdf,"results/Penobscot runs/resdf(1).csv")
+
 # . Abundance at mouth ----
 library(tidyverse)
+resdf1<-read.csv("results/Penobscot runs/resdf(1).csv")
+resdf2<-read.csv("results/Penobscot runs/resdf(2).csv")
+
+
 plotter <- resdf %>%
   group_by(downstream_juv, downstream, upstream) %>%
   summarize(
