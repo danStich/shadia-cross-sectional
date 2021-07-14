@@ -105,16 +105,14 @@ out <- lapply(result, function(x) x[[c('sim')]])
 
 # Extract user inputs and population metrics
 # res <- lapply(out, function(x) x[[c('res')]])
-resdf <- do.call(rbind, out)
+resdf2 <- do.call(rbind, out)
 
-#Save resdf (rename file after each 500 iteration runs)
-write.csv(resdf,"results/Penobscot runs/resdf(1).csv")
+#Combine two runs of 500 iterations to make 1000
+resdf<-combine(resdf1,resdf2)
+
 
 # . Abundance at mouth ----
 library(tidyverse)
-resdf1<-read.csv("results/Penobscot runs/resdf(1).csv")
-resdf2<-read.csv("results/Penobscot runs/resdf(2).csv")
-
 
 plotter <- resdf %>%
   group_by(downstream_juv, downstream, upstream) %>%
@@ -128,7 +126,7 @@ plotter <- resdf %>%
     )
 
 # Save result to .rda file
-save(plotter, file = "results/penobscot_variable.rda")
+save(plotter, file = "results/Penobscot runs/penobscot_variable.rda")
 
 # Convert grouping vars to character
 plotter <- plotter %>%

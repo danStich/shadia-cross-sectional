@@ -28,7 +28,7 @@ wrapper <- function(x) {
   res1 <- connecticutRiverModel(
     species = 'shad',
     nRuns = 1,
-    nYears = 20,
+    nYears = 40,
     n_adults = rnorm(1, 1e4, 10),
     timing = rep(1, 5),
     upstream = list(
@@ -75,7 +75,7 @@ sfLibrary(shadia)
 sfLibrary(rlecuyer)
 
 # Number of iterations
-niterations <- 100
+niterations <- 500
 
 # Store and print start time
 start <- Sys.time()
@@ -92,11 +92,13 @@ Sys.time() - start
 sfStop()
 
 # Extract results list from output list
-out <- lapply(result, function(x) x[[c('sim')]])
+out2 <- lapply(result, function(x) x[[c('sim')]])
 
 # Extract user inputs and population metrics
 # res <- lapply(out, function(x) x[[c('res')]])
-resdf <- do.call(rbind, out)
+resdf2 <- do.call(rbind, out2)
+
+resdf<-combine(resdf1,resdf2)
 
 # . Abundance at mouth ----
 library(tidyverse)
