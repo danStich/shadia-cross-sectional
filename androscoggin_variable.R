@@ -28,12 +28,12 @@ wrapper <- function(x) {
   res1 <- androscogginRiverModel(
     species = 'shad',
     nRuns = 1,
-    nYears = 20,
+    nYears = 40,
     n_adults = rnorm(1, 1e4, 10),
     timing = rep(1, 12),
     upstream = list(
       brunswick = upstreamx,
-      pejebscot = 1,
+      pejepscot = 1,
       worumbo = 1,
       lbarker = 1,
       ubarker = 1,
@@ -46,7 +46,7 @@ wrapper <- function(x) {
       fortier = 1),
     downstream = list(
       brunswick = downstreamx,
-      pejebscot = 1,
+      pejepscot = 1,
       worumbo = 1,
       lbarker = 1,
       ubarker = 1,
@@ -59,7 +59,7 @@ wrapper <- function(x) {
       fortier = 1),
     downstream_juv = list(
       brunswick = downstream_juvx,
-      pejebscot = 1,
+      pejepscot = 1,
       worumbo = 1,
       lbarker = 1,
       ubarker = 1,
@@ -94,7 +94,7 @@ sfLibrary(shadia)
 sfLibrary(rlecuyer)
 
 # Number of iterations
-niterations <- 200
+niterations <- 1000
 
 # Store and print start time
 start <- Sys.time()
@@ -130,8 +130,10 @@ plotter <- resdf %>%
     .groups = "keep"
     )
 
-# Save result to .rda file
-# save(plotter, file = "results/androscoggin_variable.rda")
+# Save result to .rda file and .csv file
+save(plotter, file = "results/androscoggin_variable_01.rda")
+write.table(plotter, file = "results/androscoggin_variable_01.csv",
+     sep = ",", row.names = FALSE, quote = FALSE)
 
 # Convert grouping vars to character
 plotter <- plotter %>%
