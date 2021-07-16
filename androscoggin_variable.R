@@ -94,7 +94,7 @@ sfLibrary(shadia)
 sfLibrary(rlecuyer)
 
 # Number of iterations
-niterations <- 1000
+niterations <- 500
 
 # Store and print start time
 start <- Sys.time()
@@ -131,9 +131,9 @@ plotter <- resdf %>%
     )
 
 # Save result to .rda file and .csv file
-save(plotter, file = "results/androscoggin_variable_01.rda")
-write.table(plotter, file = "results/androscoggin_variable_01.csv",
-     sep = ",", row.names = FALSE, quote = FALSE)
+save(plotter, file = "results/androscoggin_variable_07.rda")
+# write.table(plotter, file = "results/androscoggin_variable_01.csv",
+#      sep = ",", row.names = FALSE, quote = FALSE)
 
 # Convert grouping vars to character
 plotter <- plotter %>%
