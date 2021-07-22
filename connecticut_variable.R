@@ -92,13 +92,13 @@ Sys.time() - start
 sfStop()
 
 # Extract results list from output list
-out2 <- lapply(result, function(x) x[[c('sim')]])
+out <- lapply(result, function(x) x[[c('sim')]])
 
 # Extract user inputs and population metrics
 # res <- lapply(out, function(x) x[[c('res')]])
-resdf2 <- do.call(rbind, out2)
+resdf <- do.call(rbind, out)
 
-resdf<-combine(resdf1,resdf2)
+
 
 # . Abundance at mouth ----
 library(tidyverse)
@@ -115,7 +115,7 @@ plotter <- resdf %>%
 
 
 # Save result to .rda file
-save(plotter, file = "results/connecticut_variable.rda")
+save(plotter, file = "results/connecticut_variable_01.rda")
 
 # Convert grouping vars to character
 plotter <- plotter %>%
