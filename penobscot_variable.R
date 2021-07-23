@@ -126,7 +126,7 @@ plotter <- resdf %>%
     )
 
 # Save result to .rda file
-save(plotter, file = "results/Penobscot runs/penobscot_variable.rda")
+save(plotter, file = "results/penobscot_variable_02.rda")
 
 # Convert grouping vars to character
 plotter <- plotter %>%
