@@ -105,10 +105,8 @@ out <- lapply(result, function(x) x[[c('sim')]])
 
 # Extract user inputs and population metrics
 # res <- lapply(out, function(x) x[[c('res')]])
-resdf2 <- do.call(rbind, out)
+resdf <- do.call(rbind, out)
 
-#Combine two runs of 500 iterations to make 1000
-resdf<-combine(resdf1,resdf2)
 
 
 # . Abundance at mouth ----
@@ -126,7 +124,7 @@ plotter <- resdf %>%
     )
 
 # Save result to .rda file
-save(plotter, file = "results/penobscot_variable_02.rda")
+save(plotter, file = "results/penobscot_variable_04.rda")
 
 # Convert grouping vars to character
 plotter <- plotter %>%
